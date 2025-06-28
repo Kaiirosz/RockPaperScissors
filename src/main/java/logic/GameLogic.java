@@ -27,21 +27,38 @@ public class GameLogic {
     public void startGame() {
         System.out.println("Rock Paper Scissors Game!!");
         System.out.println("-------");
-        System.out.println("Best of how many wins?");
-        int bestOf = sc.nextInt();
-        sc.nextLine();
+        int firstTo = getFirstTo();
         while (true) {
             getHand();
             generatePlayer2Hand();
             System.out.println("Player 2 throws a " + player2.getHand());
             System.out.println("YOU " + getResult() + "!!");
-            if (wins >= bestOf || losses >= bestOf){
+            if (wins >= firstTo || losses >= firstTo){
                 break;
             }
             System.out.println("Standing: " + wins + "-" + losses);
         }
         System.out.println("Game ends.");
         System.out.println("Final Standing: " + wins + "-" + losses);
+    }
+
+    public int getFirstTo() {
+        int firstTo = 0;
+        while (true) {
+            System.out.println("First to how many wins?");
+            if (sc.hasNextInt()) {
+                firstTo = sc.nextInt();
+                sc.nextLine();
+                if (firstTo > 0) {
+                    break;
+                }
+                System.err.println("Number must be greater than 0.");
+            } else {
+                System.err.println("Please enter a valid number.");
+                sc.nextLine();
+            }
+        }
+        return firstTo;
     }
 
 
