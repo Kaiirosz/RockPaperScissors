@@ -1,3 +1,7 @@
+package player;
+
+import model.Hand;
+
 public class Player {
     private Hand hand;
 

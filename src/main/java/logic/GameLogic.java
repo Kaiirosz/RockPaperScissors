@@ -1,3 +1,9 @@
+package logic;
+
+import model.Hand;
+import model.Result;
+import player.Player;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,7 +19,7 @@ public class GameLogic {
     }
 
     public void startGame() {
-        System.out.println("Rock Paper Scissors Game!!");
+        System.out.println("Rock Paper Scissors game.Game!!");
         System.out.println("-------");
         getHand();
         generatePlayer2Hand();
@@ -28,7 +34,7 @@ public class GameLogic {
 
     public void getHand() {
         System.out.println("What will you throw??");
-        System.out.println("Rock / Paper / Scissors");
+        System.out.println("ROCK / PAPER / SCISSORS");
         String output = sc.nextLine().toUpperCase();
         switch (output) {
             case "ROCK":
@@ -41,14 +47,15 @@ public class GameLogic {
                 player1.setHand(Hand.SCISSORS);
                 break;
             default:
-                System.err.println("Invalid Hand!");
+                System.err.println("Invalid model.Hand!");
                 getHand();
         }
     }
 
     public void generatePlayer2Hand() {
         Random random = new Random();
-        int randHand = random.nextInt(3 + 1);
+        int randHand = random.nextInt(3) + 1;
+
         switch (randHand) {
             case 1:
                 player2.setHand(Hand.ROCK);
@@ -65,31 +72,14 @@ public class GameLogic {
     public Result getResult() {
         Hand playerHand = player1.getHand();
         Hand computerHand = player2.getHand();
-        if (playerHand == Hand.ROCK) {
-            if (computerHand == Hand.SCISSORS) {
-                return Result.WIN;
-            } else if (computerHand == Hand.PAPER) {
-                return Result.LOSE;
-            } else if (computerHand == Hand.ROCK) {
-                return Result.DRAW;
-            }
-        } else if (playerHand == Hand.PAPER) {
-            if (computerHand == Hand.ROCK) {
-                return Result.WIN;
-            } else if (computerHand == Hand.SCISSORS) {
-                return Result.LOSE;
-            } else if (computerHand == Hand.PAPER) {
-                return Result.DRAW;
-            }
-        } else if (playerHand == Hand.SCISSORS) {
-            if (computerHand == Hand.PAPER) {
-                return Result.WIN;
-            } else if (computerHand == Hand.ROCK) {
-                return Result.LOSE;
-            } else if (computerHand == Hand.SCISSORS) {
-                return Result.DRAW;
-            }
+        if (playerHand.isSame(computerHand)){
+            return Result.DRAW;
         }
-        return null;
+        if (playerHand.beats(computerHand)){
+            return Result.WIN;
+        }
+        else {
+            return Result.LOSE;
+        }
     }
 }
