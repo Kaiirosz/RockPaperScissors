@@ -17,11 +17,11 @@ public class GameLogic {
         System.out.println("-------");
         getHand();
         generatePlayer2Hand();
-        System.out.println(player2.getHand());
+        System.out.println("Player 2 throws a " + player2.getHand());
         System.out.println("YOU " + getResult() + "!!");
         System.out.println("Play Again? (Y/N)");
         String input = sc.nextLine();
-        if (input.equals("Y")){
+        if (input.equalsIgnoreCase("Y")){
             startGame();
         }
     }
